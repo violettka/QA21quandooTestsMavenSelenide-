@@ -12,10 +12,8 @@ public class PageBase {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-    //BASE URL
-    public static String BASE_URL = "https://www.quandoo.de/en/berlin";
 
-    // general methods
+    // common methods
     public void pause(int millis) {
         try {
             Thread.sleep(millis);

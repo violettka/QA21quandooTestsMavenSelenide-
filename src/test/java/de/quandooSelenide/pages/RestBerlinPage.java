@@ -24,13 +24,12 @@ public class RestBerlinPage extends PageBase{
     private static By list = By.cssSelector(".iTkAfG");
     private static By restCountAfter = By.cssSelector(".cfhRwc");
 
-    public int getCountFirstItemInCuisine(String str) {
-        int count = Integer.parseInt(str.substring(1, str.length() - 1));
-        return count;
-    }
+    /* Methods */
 
     public void acceptAllCookies() {
+        if ($(byText("Accept all")).exists()){
         $(byText("Accept all")).click();
+        }
     }
 
     public String getRestCountBeforeText() {
@@ -52,6 +51,11 @@ public class RestBerlinPage extends PageBase{
 
     public String getFirstItemText() {
        return $(firstItemText).getText();
+    }
+
+    public int getCountFirstItemInCuisine(String str) {
+        int count = Integer.parseInt(str.substring(1, str.length() - 1));
+        return count;
     }
 
     public int getListSize() {

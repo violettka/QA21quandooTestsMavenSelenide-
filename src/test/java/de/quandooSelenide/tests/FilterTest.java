@@ -18,7 +18,7 @@ public class FilterTest {
      * select first item in Cuisine filter;
      * check number of displayed restaurants
      */
-    
+
     @BeforeEach
     public void setUp() {
         //open  Restaurants in Berlin page

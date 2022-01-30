@@ -1,6 +1,6 @@
 ## web-automation
 
-This is the web test automation project for testing https://www.quandoo.de/en/berlin website. It was built using Java 11, Selenium 3, JUnit frameworks.
+This is the web test automation project for testing https://www.quandoo.de/en/berlin website. It was built using Java 11, Selenide 6.2.1, JUnit5 frameworks.
 
 ## Tests
 
@@ -19,7 +19,7 @@ Project has a test class which represents the following scenario:
 ## Prerequisites Software/Tools
 
 1. Java Development Kit (Java 11)
-2. Java Runtime Environment
+2. Selenide
 3. Maven [ http://maven.apache.org/ ]
 4. Git [ http://git-scm.com/downloads ]
 5. Chrome browser/ Chromedriver
@@ -27,7 +27,7 @@ Project has a test class which represents the following scenario:
 
 ## Installation/Running Tests
 
-`git clone https://github.com/IrynaAyguen/QA21quandooTestsMavenJUnit`
+`git clone https://github.com/IrynaAyguen/QA21quandooTestsMavenSelenide`
 
 `mvn test`
 

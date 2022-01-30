@@ -2,17 +2,19 @@ package de.quandooSelenide.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 
-public class RestBerlinPage extends PageBase{
-    public RestBerlinPage(WebDriver driver) {
-        super(driver);
-        
+public class RestBerlinPage {
+
+    /* Constructor */
+
+    public RestBerlinPage() {
+        open("https://www.quandoo.de/en/berlin");
+        getWebDriver().manage().window().maximize();
     }
 
     /* Elements */
@@ -23,6 +25,7 @@ public class RestBerlinPage extends PageBase{
     private static By firstItemText = By.xpath("//div[@class='ulye33-0 cdvAxr']  / li[1] //div[1] /span[2]");
     private static By list = By.cssSelector(".iTkAfG");
     private static By restCountAfter = By.cssSelector(".cfhRwc");
+
 
     /* Methods */
 
@@ -60,5 +63,14 @@ public class RestBerlinPage extends PageBase{
 
     public int getListSize() {
         return $$(list).size();
+    }
+
+    // common method
+    public void pause(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

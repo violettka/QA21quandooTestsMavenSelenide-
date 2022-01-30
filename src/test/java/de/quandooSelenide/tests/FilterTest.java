@@ -1,30 +1,34 @@
 package de.quandooSelenide.tests;
 
 import com.codeborne.selenide.Condition;
+import de.quandooSelenide.pages.RestBerlinPage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * UI test for search filter https://www.quandoo.de/en/berlin
  */
-public class FilterTest extends TestBase {
+public class FilterTest {
+    RestBerlinPage restBerlinPage;
     /**
      * Test:
      * click filter Top rated;
      * select first item in Cuisine filter;
      * check number of displayed restaurants
      */
+    
+    @BeforeEach
+    public void setUp() {
+        //open  Restaurants in Berlin page
+        restBerlinPage = new RestBerlinPage();
+        //accept cookies
+        restBerlinPage.acceptAllCookies();
+    }
 
     @Test
     public void FilterTest() {
-        //open  Restaurants in Berlin page
-        open("https://www.quandoo.de/en/berlin");
-        getWebDriver().manage().window().maximize();
-        //accept cookies
-        restBerlinPage.acceptAllCookies();
         //save total restaurants number to variable
         String restCountBefore = restBerlinPage.getRestCountBeforeText();
         //click filter Top rated

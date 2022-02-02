@@ -1,6 +1,7 @@
 package de.quandooSelenide.tests;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import de.quandooSelenide.pages.CommonsPage;
 import de.quandooSelenide.pages.RestBerlinPage;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,12 +37,16 @@ public class FilterTest {
     public void topRatedAfricanFilterTest() {
         //save total restaurants number to variable
         String restCountBefore = restBerlinPage.restaurantCount().getText();
+        System.out.println("******" + restCountBefore);
         //click filter Top rated
         restBerlinPage.clickOnTopRated();
         // assert that the rating of the first restaurant is more than 4
         assertTrue(restBerlinPage.getFirstRestaurantRating() >= 4);
+        Selenide.sleep(3000);
         //assert total number of restaurants changed
+        System.out.println("###### 1:"+restBerlinPage.restaurantCount().getText());
         restBerlinPage.restaurantCount().shouldNotHave(exactValue(restCountBefore));
+        System.out.println("###### 2:"+restBerlinPage.restaurantCount().getText());
         // click on African Filter in Cuisine filter
         restBerlinPage.selectAfricanCuisineFilter();
         // assert that the first restaurant has African cuisine label
@@ -49,4 +54,5 @@ public class FilterTest {
         //assert correct number of displayed restaurants
         assertEquals(restBerlinPage.getAfricanRestaurantCount(), restBerlinPage.getRestaurantListSize());
     }
+
 }

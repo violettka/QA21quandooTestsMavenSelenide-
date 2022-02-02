@@ -1,47 +1,52 @@
 package de.quandooSelenide.tests;
 
 import com.codeborne.selenide.Condition;
+import de.quandooSelenide.pages.CommonsPage;
 import de.quandooSelenide.pages.RestBerlinPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.exactValue;
+import static com.codeborne.selenide.Condition.text;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * UI test for search filter https://www.quandoo.de/en/berlin
  */
 public class FilterTest {
     RestBerlinPage restBerlinPage;
-    /**
-     * Test:
-     * click filter Top rated;
-     * select first item in Cuisine filter;
-     * check number of displayed restaurants
-     */
 
     @BeforeEach
     public void setUp() {
         //open  Restaurants in Berlin page
-        restBerlinPage = new RestBerlinPage();
+        restBerlinPage = new RestBerlinPage().openPage();
         //accept cookies
-        restBerlinPage.acceptAllCookies();
+        new CommonsPage().acceptAllCookies();
     }
 
     @Test
-    public void FilterTest() {
+    /**
+     * Test:
+     * click filter Top rated;
+     * check number of displayed restaurants
+     * select African filter in Cuisine filter;
+     * check number of displayed restaurants
+     */
+    public void topRatedAfricanFilterTest() {
         //save total restaurants number to variable
-        String restCountBefore = restBerlinPage.getRestCountBeforeText();
+        String restCountBefore = restBerlinPage.restaurantCount().getText();
         //click filter Top rated
         restBerlinPage.clickOnTopRated();
+        // assert that the rating of the first restaurant is more than 4
+        assertTrue(restBerlinPage.getFirstRestaurantRating() >= 4);
         //assert total number of restaurants changed
-        restBerlinPage.getRestCountAfter().shouldNotHave(Condition.exactValue(restCountBefore));
-        // click on first item in Cuisine filter
-        restBerlinPage.selectFirstItemInCuisineFilter();
+        restBerlinPage.restaurantCount().shouldNotHave(exactValue(restCountBefore));
+        // click on African Filter in Cuisine filter
+        restBerlinPage.selectAfricanCuisineFilter();
+        // assert that the first restaurant has African cuisine label
+        restBerlinPage.firstRestaurantCard().shouldHave(text("African"));
         //assert correct number of displayed restaurants
-        String firstItemText = restBerlinPage.getFirstItemText();
-        int countFirstItemInCuisine = restBerlinPage.getCountFirstItemInCuisine(firstItemText);
-        int listSize = restBerlinPage.getListSize();
-        assertEquals(countFirstItemInCuisine, listSize);
-
+        assertEquals(restBerlinPage.getAfricanRestaurantCount(), restBerlinPage.getRestaurantListSize());
     }
 }
